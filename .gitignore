@@ -1,0 +1,13 @@
+# Created by .ignore support plugin (hsz.mobi)
+src/main/resources/*.properties
+.idea/
+target/
+*.iml
+
+.idea/misc.xml
+
+/.project
+/bin/
+/.settings/
+/.classpath
+/.springBeans
