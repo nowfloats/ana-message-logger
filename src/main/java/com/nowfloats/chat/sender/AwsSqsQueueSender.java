@@ -54,7 +54,7 @@ public class AwsSqsQueueSender implements QueueSender {
 
         logger.info("sending message to queue"+awsClientProvider.getQueueName());
 
-        SendMessageResult sendMessageResult = amazonSQS.sendMessage(new SendMessageRequest(awsClientProvider.getQueueName(), "Hello World!"));
+        SendMessageResult sendMessageResult = amazonSQS.sendMessage(new SendMessageRequest(awsClientProvider.getQueueName(), message));
         return true;
     }
 }

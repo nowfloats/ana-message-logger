@@ -24,13 +24,6 @@
          <slf4jVersion>1.6.1</slf4jVersion>
 
     </properties>
-
-    <parent>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <groupId>org.springframework.boot</groupId>
-        <version>1.5.6.RELEASE</version>
-    </parent>
-
     <repositories>
         <repository>
             <id>nexus-snapshots</id>
@@ -51,6 +44,13 @@
             <artifactId>amazon-sqs-java-messaging-lib</artifactId>
             <version>${amazon-sqs-java-messaging-lib.version}</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.ning/async-http-client -->
+        <dependency>
+            <groupId>com.ning</groupId>
+            <artifactId>async-http-client</artifactId>
+            <version>1.6.4</version>
+        </dependency>
+
     </dependencies>
 
     <build>

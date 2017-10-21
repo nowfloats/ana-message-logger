@@ -3,12 +3,12 @@ package com.nowfloats.chat.utils;
 /**
  * Created by tej on 18/10/17.
  */
-public enum ProviderType {
+public enum QueueType {
     SQS(0), KAFKA(1), RABBIT_MQ(2);
 
     private int queueType;
 
-    ProviderType(int queueType) {
+    QueueType(int queueType) {
         this.queueType = queueType;
     }
 
