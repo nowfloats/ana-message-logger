@@ -8,6 +8,7 @@ import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nowfloats.chat.config.AwsClientProvider;
+import com.nowfloats.chat.config.AwsSqsParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +21,15 @@ import java.util.Map;
 
 public class AwsSqsQueueSender implements QueueSender {
     private static Logger logger = LoggerFactory.getLogger(AwsSqsQueueSender.class);
+    public AwsSqsParams awsSqsParams;
 
-    public AwsClientProvider awsClientProvider;
-
-    public AwsSqsQueueSender(AwsClientProvider awsClientProvider) {
-        this.awsClientProvider = awsClientProvider;
+    public AwsSqsQueueSender(AwsSqsParams awsSqsParams) {
+        this.awsSqsParams = awsSqsParams;
     }
 
-    public boolean send(String message) {
+    public String send(String message) {
+
+        AmazonSQS amazonSQS = AwsClientProvider.getAmazonSQSInstance(awsSqsParams.getQueueName(), awsSqsParams.getRegion());
 
         ObjectMapper objectMapper = new ObjectMapper();
         String messageJsonStr = null;
@@ -37,24 +39,17 @@ public class AwsSqsQueueSender implements QueueSender {
             e.printStackTrace();
         }
 
-        logger.info("creating async sqs client for "+awsClientProvider.getQueueName());
-        logger.info(" for region "+awsClientProvider.getRegion());
+        SendMessageResult sendMessageResult = amazonSQS.sendMessage(new SendMessageRequest(awsSqsParams.getQueueName(), message));
 
-        AmazonSQS amazonSQS = awsClientProvider.createAsyncSQSClient();
+        if(sendMessageResult != null){
+            logger.info("message sent with Id: "+sendMessageResult.getMessageId());
+            return sendMessageResult.getMessageId();
+        }
+        else {
+            logger.error("error while sending message to aws sqs "+message);
+        }
 
-        SendMessageRequest sendMessageRequest = new SendMessageRequest();
-        sendMessageRequest.withMessageBody(messageJsonStr);
+        return null;
 
-        GetQueueUrlResult result = amazonSQS.getQueueUrl(awsClientProvider.getQueueName());
-        String queURL = result.getQueueUrl();
-        sendMessageRequest.withQueueUrl(queURL);
-
-        Map<String, MessageAttributeValue> messageAttributes = new HashMap<>();
-        sendMessageRequest.withMessageAttributes(messageAttributes);
-
-        logger.info("sending message to queue"+awsClientProvider.getQueueName());
-
-        SendMessageResult sendMessageResult = amazonSQS.sendMessage(new SendMessageRequest(awsClientProvider.getQueueName(), message));
-        return true;
     }
 }

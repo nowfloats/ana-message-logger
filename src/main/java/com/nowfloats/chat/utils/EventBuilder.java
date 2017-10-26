@@ -1,4 +1,4 @@
-package com.nowfloats.chat;
+package com.nowfloats.chat.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,7 +24,7 @@ import java.util.Map;
         "epoch_time",
         "properties",
 })
-class EventBuilder {
+public class EventBuilder {
     @JsonProperty("event_name")
     private String eventName;
 

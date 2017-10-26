@@ -6,5 +6,5 @@ package com.nowfloats.chat.sender;
 
 
 public interface QueueSender {
-    public boolean send(String message);
+    public String send(String message);
 }

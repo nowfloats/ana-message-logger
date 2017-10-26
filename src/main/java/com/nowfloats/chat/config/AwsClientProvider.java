@@ -12,7 +12,9 @@ import com.amazonaws.services.sqs.AmazonSQSAsyncClient;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.buffered.AmazonSQSBufferedAsyncClient;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
+import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
+import com.nowfloats.chat.sender.AwsSqsQueueSender;
 import com.nowfloats.chat.sender.QueueSender;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by root on 16/10/17.
@@ -27,28 +30,25 @@ import java.util.concurrent.TimeUnit;
 public class AwsClientProvider implements ClientProvider {
 
 
-    private String queueName;
-    private String region;
+    private static Logger logger = LoggerFactory.getLogger(AwsClientProvider.class);
+    private static volatile AmazonSQS amazonSQS;
 
-    public String getQueueName() {
-        return queueName;
+
+    public static AmazonSQS getAmazonSQSInstance(String queueName, String region) {
+
+        if(amazonSQS == null){
+            synchronized (AwsSqsQueueSender.class){
+                if (amazonSQS == null){
+                    amazonSQS = createAsyncSQSClient(queueName, region);
+                    logger.info("created async sqs client for "+queueName);
+                    logger.info(" for region "+region);
+                }
+            }
+        }
+        return amazonSQS;
     }
 
-    public void setQueueName(String queueName) {
-        this.queueName = queueName;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    private static Logger logger = LoggerFactory.getLogger(QueueSender.class);
-
-    public AmazonSQS createAsyncSQSClient() {
+    public static AmazonSQS createAsyncSQSClient(String queueName, String region) {
 
         AWSCredentialsProvider provider = new ClasspathPropertiesFileCredentialsProvider();
         ClientConfiguration cc = new ClientConfiguration();
