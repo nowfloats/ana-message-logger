@@ -1,33 +1,26 @@
-package com.nowfloats.chat.config;
+package com.nowfloats.chat.sqssender;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
-import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
-import com.amazonaws.services.sqs.AmazonSQSAsync;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClient;
-import com.amazonaws.services.sqs.AmazonSQSClient;
-import com.amazonaws.services.sqs.buffered.AmazonSQSBufferedAsyncClient;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
-import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
-import com.nowfloats.chat.sender.AwsSqsQueueSender;
-import com.nowfloats.chat.sender.QueueSender;
+import com.nowfloats.chat.logger.ClientProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by root on 16/10/17.
  */
-public class AwsClientProvider implements ClientProvider {
+public class AwsClientProvider {
 
 
     private static Logger logger = LoggerFactory.getLogger(AwsClientProvider.class);

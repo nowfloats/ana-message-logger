@@ -1,4 +1,4 @@
-package com.nowfloats.chat.sender;
+package com.nowfloats.chat.logger;
 
 /**
  * Created by root on 17/10/17.
@@ -6,5 +6,7 @@ package com.nowfloats.chat.sender;
 
 
 public interface QueueSender {
-    public String send(String message);
+
+    String send(String message);
+
 }

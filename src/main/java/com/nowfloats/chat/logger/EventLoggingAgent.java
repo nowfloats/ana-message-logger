@@ -1,8 +1,6 @@
-package com.nowfloats.chat;
+package com.nowfloats.chat.logger;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nowfloats.chat.sender.QueueSender;
-import com.nowfloats.chat.utils.EventBuilder;
 import com.nowfloats.chat.utils.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Created by root on 16/10/17.
  */
 
-public class EventLoggingAgent {
+public class EventLoggingAgent<T> {
 
     private static Logger logger = LoggerFactory.getLogger(EventLoggingAgent.class);
 
@@ -39,19 +37,19 @@ public class EventLoggingAgent {
         }
     }
 
-    public static void logEvent(String eventName,
+    public void logEvent(String eventName,
                                 String eventSection,
-                                Map<String, Object> eventParams) {
+                                Map<String, T> eventParams) {
 
         logger.info("logging event {}, {}", eventName, eventParams);
         long epochTimeUtcInSecs = Util.getCurrentEpochTimeinUTCinMillis() / 1000;
         logEvent(eventName, eventSection, epochTimeUtcInSecs, eventParams);
     }
 
-    public static void logEvent(String eventName,
+    public void logEvent(String eventName,
                                 String eventSection,
                                 Long epochTimeUtcInSecs,
-                                Map<String, Object> eventParams) {
+                                Map<String, T> eventParams) {
         EventBuilder builder = new EventBuilder(eventName, eventSection, epochTimeUtcInSecs);
         if(eventParams != null) {
             builder.setProperties(eventParams);

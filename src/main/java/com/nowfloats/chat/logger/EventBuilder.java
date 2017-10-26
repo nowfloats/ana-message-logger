@@ -1,4 +1,4 @@
-package com.nowfloats.chat.utils;
+package com.nowfloats.chat.logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -24,7 +24,7 @@ import java.util.Map;
         "epoch_time",
         "properties",
 })
-public class EventBuilder {
+public class EventBuilder<T> {
     @JsonProperty("event_name")
     private String eventName;
 
@@ -44,7 +44,7 @@ public class EventBuilder {
         return epochTime;
     }
 
-    public Map<String, Object> getProperties() {
+    public Map<String, T> getProperties() {
         return properties;
     }
 
@@ -58,7 +58,7 @@ public class EventBuilder {
     private Long epochTime;
 
     @JsonProperty("properties")
-    private Map<String, Object> properties = new LinkedHashMap<String, Object>();
+    private Map<String, T> properties = new LinkedHashMap<>();
 
 
     @JsonIgnore
@@ -76,20 +76,20 @@ public class EventBuilder {
         this.timeFieldKey = timeFieldKey;
     }
 
-    public void setProperties(Map<String, Object> properties) {
+    public void setProperties(Map<String, T> properties) {
         this.properties.putAll(properties);
     }
 
-    public void addProperty(String key, Object value) {
+    public void addProperty(String key, T value) {
         if(this.properties == null) {
-            this.properties = new HashMap<String, Object>();
+            this.properties = new HashMap<String, T>();
         }
         this.properties.put(key, value);
     }
 
-    public void addAllProperties(String key, Object value) {
+    public void addAllProperties(String key, T value) {
         if(this.properties == null) {
-            this.properties = new HashMap<String, Object>();
+            this.properties = new HashMap<String, T>();
         }
         this.properties.put(key, value);
     }

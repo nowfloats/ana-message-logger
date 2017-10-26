@@ -1,4 +1,4 @@
-package com.nowfloats.chat.config;
+package com.nowfloats.chat.sqssender;
 
 /**
  * Created by tej on 26/10/17.
