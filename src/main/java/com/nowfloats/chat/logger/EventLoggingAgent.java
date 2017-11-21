@@ -16,10 +16,15 @@ public class EventLoggingAgent<T> {
     private static Logger logger = LoggerFactory.getLogger(EventLoggingAgent.class);
 
     private final QueueSender queueSender;
+    private final boolean isQueueEnabled;
 
+    public boolean isQueueEnabled() {
+        return isQueueEnabled;
+    }
 
-    public EventLoggingAgent(QueueSender queueSender) {
+    public EventLoggingAgent(QueueSender queueSender, boolean isQueueEnabled) {
         this.queueSender = queueSender;
+        this.isQueueEnabled = isQueueEnabled;
     }
 
     public void logEvent(String eventName,
