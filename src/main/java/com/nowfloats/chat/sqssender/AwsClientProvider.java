@@ -45,14 +45,14 @@ public class AwsClientProvider {
 
         AWSCredentialsProvider provider = new ClasspathPropertiesFileCredentialsProvider();
         ClientConfiguration cc = new ClientConfiguration();
-        Region REGION = Region.getRegion(Regions.fromName("ap-southeast-1"));
 
         AmazonSQS sqs = new AmazonSQSAsyncClient(provider, cc);
         sqs.setRegion(Region.getRegion(Regions.fromName(region)));
-        sqs.setRegion(REGION);
+        Map<String, String> queueAttributes = new HashMap<>();
+        queueAttributes.put("VisibilityTimeout", "120");
 
         logger.info("Creating Queue " + queueName + " with VisibilityTimeout of 120s.");
-        CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName);
+        CreateQueueRequest createQueueRequest = new CreateQueueRequest(queueName).withAttributes(queueAttributes);
         String myQueueUrl;
         try {
             myQueueUrl = sqs.createQueue(createQueueRequest).getQueueUrl();
