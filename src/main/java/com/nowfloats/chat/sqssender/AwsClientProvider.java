@@ -2,6 +2,7 @@ package com.nowfloats.chat.sqssender;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSCredentialsProviderChain;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
@@ -43,7 +44,7 @@ public class AwsClientProvider {
 
     public static AmazonSQS createAsyncSQSClient(String queueName, String region) {
 
-        AWSCredentialsProvider provider = new ClasspathPropertiesFileCredentialsProvider();
+        AWSCredentialsProvider provider = new AWSCredentialsProviderChain();
         ClientConfiguration cc = new ClientConfiguration();
 
         AmazonSQS sqs = new AmazonSQSAsyncClient(provider, cc);
