@@ -1,4 +1,4 @@
-package com.nowfloats.chat.sqssender;
+package chat.ana.eventlogs.sqssender;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.auth.*;
@@ -8,7 +8,9 @@ import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSAsyncClient;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
 import com.amazonaws.services.sqs.model.QueueDeletedRecentlyException;
-import com.nowfloats.chat.logger.ClientProvider;
+
+import chat.ana.eventlogs.logger.ClientProvider;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

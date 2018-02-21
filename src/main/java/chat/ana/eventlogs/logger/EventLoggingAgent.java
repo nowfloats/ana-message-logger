@@ -1,8 +1,9 @@
-package com.nowfloats.chat.logger;
+package chat.ana.eventlogs.logger;
 
-import com.nowfloats.chat.utils.Util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import chat.ana.eventlogs.utils.Util;
 
 import java.util.Map;
 

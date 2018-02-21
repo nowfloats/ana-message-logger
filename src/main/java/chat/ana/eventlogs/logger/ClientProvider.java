@@ -1,4 +1,4 @@
-package com.nowfloats.chat.logger;
+package chat.ana.eventlogs.logger;
 
 /**
  * Created by tej on 18/10/17.
