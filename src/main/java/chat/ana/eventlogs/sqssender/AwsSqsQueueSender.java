@@ -1,11 +1,13 @@
-package com.nowfloats.chat.sqssender;
+package chat.ana.eventlogs.sqssender;
 
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nowfloats.chat.logger.QueueSender;
+
+import chat.ana.eventlogs.logger.QueueSender;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,4 +1,4 @@
-package com.nowfloats.chat.sqssender;
+package chat.ana.eventlogs.sqssender;
 
 /**
  * Created by tej on 26/10/17.

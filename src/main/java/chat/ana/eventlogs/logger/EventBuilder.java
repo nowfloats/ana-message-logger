@@ -1,4 +1,4 @@
-package com.nowfloats.chat.logger;
+package chat.ana.eventlogs.logger;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,4 +1,4 @@
-package com.nowfloats.chat.utils;
+package chat.ana.eventlogs.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
